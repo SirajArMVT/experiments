@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "_MyLayout";
+}
+fr-index
+<br />
+@LocString["Hello there!!"]
+<br />
+
+@ViewData["Message"]
+<br />
+
+@await Html.PartialAsync("_Partial")
+@await Html.PartialAsync("_MyPartial")
