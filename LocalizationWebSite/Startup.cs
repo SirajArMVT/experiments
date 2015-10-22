@@ -16,6 +16,7 @@ namespace LocalizationWebSite
 
         public void Configure(IApplicationBuilder app)
         {
+			// this could not be resolved in beta8
             //app.UseCultureReplacer();
 
             app.UseDeveloperExceptionPage();
