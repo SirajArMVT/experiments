@@ -3,21 +3,26 @@
 
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Localization;
+//using SomeWebLib;
 
 namespace LocalizationWebSite.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IHtmlLocalizer _localizer;
+        private readonly IHtmlLocalizer common;
 
-        public HomeController(IHtmlLocalizer<HomeController> localizer)
+        public HomeController(
+            IHtmlLocalizer<HomeController> localizer,
+            IHtmlLocalizer<SomeWebLib.CommonResources> localizer2)
         {
             _localizer = localizer;
+            common = localizer2;
         }
 
         public IActionResult Index()
         {
-            ViewData["Message"] = _localizer["Learn More"];
+            ViewData["Message"] = common["Learn More"];
             return View();
         }
 
