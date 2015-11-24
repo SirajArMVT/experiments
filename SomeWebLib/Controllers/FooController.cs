@@ -19,7 +19,7 @@ namespace SomeWebLib.Controllers
 
         public IActionResult Index()
         {
-            // this does not get localised whenbrowser language is fr
+            // this does not get localized when browser language is fr
             // even though the web app has Resources/SomeWebLib.Controllers.FooController.fr.resx
             ViewData["Message"] = _localizer["Learn More"];
             return View();

@@ -30,6 +30,7 @@ namespace LocalizationWebSite.Controllers
         {
             ViewData["Message"] = common["Learn More"]; // this does not localize because CommonResources is in a separate classlibrary
             ViewData["Message2"] = shared["yes yes yes"]; //this does localize because SharedResources is directly in the web app
+            ViewData["Message3"] = _localizer["Hello there!!"]; //this does work because HomeController is in the web app
             return View();
         }
 
