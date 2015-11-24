@@ -26,8 +26,8 @@ namespace LocalizationWebSite.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Message"] = common["Learn More"];
-            ViewData["Message2"] = shared["yes yes yes"];
+            ViewData["Message"] = common["Learn More"]; // this does not localize because CommonResources is in a separate classlibrary
+            ViewData["Message2"] = shared["yes yes yes"]; //this does localize because SharedResources is directly in the web app
             return View();
         }
 
