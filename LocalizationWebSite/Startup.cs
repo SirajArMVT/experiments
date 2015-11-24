@@ -41,7 +41,13 @@ namespace LocalizationWebSite
             };
             app.UseRequestLocalization(options, new RequestCulture("en-US"));
 
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
 
             app.Run(context =>
             {

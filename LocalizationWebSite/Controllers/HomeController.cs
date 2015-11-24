@@ -6,6 +6,8 @@ using Microsoft.AspNet.Mvc.Localization;
 using LocalizationWebSite.Components;
 //using SomeWebLib;
 
+// https://github.com/aspnet/Localization/issues/150#issuecomment-159108801
+
 namespace LocalizationWebSite.Controllers
 {
     public class HomeController : Controller
