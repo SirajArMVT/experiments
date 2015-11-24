@@ -1,13 +1,16 @@
 ﻿@{
     Layout = "_MyLayout";
 }
-fr-index
+Index.fr.cshtml
 <br />
-@LocString["Hello there!!"]
-<br />
-
-@ViewData["Message"]
+@LocString["Hello there!!"] from ViewLocalizer
 <br />
 
+@ViewData["Message"] from resource related to class within a separate classlibrary
+<br />
+@ViewData["Message2"] from resource related to class within the web app
+
+<hr />
 @await Html.PartialAsync("_Partial")
+<hr />
 @await Html.PartialAsync("_MyPartial")

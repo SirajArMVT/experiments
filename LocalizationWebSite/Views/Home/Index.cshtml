@@ -1,6 +1,11 @@
 ﻿@{
     Layout = "_MyLayout";
 }
-index
+index.cshtml
+<br />
+@ViewData["Message"]
+<br />
+<hr />
 @await Html.PartialAsync("_Partial")
+<hr />
 @await Html.PartialAsync("_MyPartial")
