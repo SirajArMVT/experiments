@@ -28,6 +28,7 @@ namespace SomeWebLib
 
         private ILoggerFactory loggerFactory;
         private ILogger log;
+        LocalizationOptions options;
 
         /// <summary>
         /// Creates a new <see cref="ResourceManagerStringLocalizer"/>.
@@ -50,6 +51,7 @@ namespace SomeWebLib
                 throw new ArgumentNullException(nameof(localizationOptions));
             }
 
+            options = localizationOptions.Value;
             _applicationEnvironment = applicationEnvironment;
             _resourcesRelativePath = localizationOptions.Value.ResourcesPath ?? string.Empty;
             if (!string.IsNullOrEmpty(_resourcesRelativePath))
@@ -92,8 +94,14 @@ namespace SomeWebLib
             {
                 // resource for a classlibrary class
                 // lets try switchback to web app assembly since that is where we want to look for resx files
-                // this does work!
-                assembly = Assembly.Load(_applicationEnvironment.ApplicationName);
+                
+                // only switch assemblies if a ResourcePath was specified
+                if(!(string.IsNullOrEmpty(options.ResourcesPath)))
+                {
+                    // this does work!
+                    assembly = Assembly.Load(_applicationEnvironment.ApplicationName);
+                }
+                
             }
             
 
