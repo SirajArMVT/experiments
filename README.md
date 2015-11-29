@@ -2,7 +2,7 @@
 
 This solution is modified from the [LocalizationWebSite](https://github.com/aspnet/Mvc/tree/dev/test/WebSites/LocalizationWebSite) sample from the MVC repo
 
-I added a class library project named SomeWebLib to dmeonstrate that there is [a difference or bug in how to localize a controller that lives in a class library project](https://github.com/aspnet/Localization/issues/152).
+I added a class library project named SomeWebLib to demonstrate that there is [a difference or bug in how to localize a controller that lives in a class library project](https://github.com/aspnet/Localization/issues/152).
 
 In the Startup.cs ConfigureServices method we have:
 
@@ -70,13 +70,13 @@ In Configure we have:
   
       IHtmlLocalizer<SomeWebLib.CommonResources> 
       
-  does not work as expected because it livces in a class library whereas
+  does not work as expected because it lives in a class library whereas
   
       IHtmlLocalizer<SharedResources>
       
   does work because it lives in the Web App
   
-  To be clear I'm saying it does work if it finds the corresponding resx file in the Resources folder of ther web app and uses it for localizing strings.
+  To be clear I'm saying it does work if it finds the corresponding resx file in the Resources folder of the web app and uses it for localizing strings.
   
       SomeWebLib.CommonResources.fr.resx
       
@@ -84,7 +84,7 @@ In Configure we have:
   
   Similarly, there exists a FooController.cs in SomeWebLib that runs in the context of the LocalizationWebSite at /Foo
   
-  It also does not get localizaed when using 
+  It also does not get localized when using 
   
       IHtmlLocalizer<FooController>
       
@@ -92,11 +92,11 @@ In Configure we have:
   
       SomeWebLib.Controllers.FooController.fr.resx
    
-  I determined that reason the localization doe snot work for class library classes is because in line 66 of [ResourceManagerStringLocalizaerFactory](https://github.com/aspnet/Localization/blob/dev/src/Microsoft.Extensions.Localization/ResourceManagerStringLocalizerFactory.cs), the assembly is being assigned as the assembly that contains the type to be localized, and this assembly gets passed into the ResourceManager, therefore it does not look for the resx file in the Resources fodler of the web app.
+  I determined that reason the localization does not work for class library classes is because in line 66 of [ResourceManagerStringLocalizaerFactory](https://github.com/aspnet/Localization/blob/dev/src/Microsoft.Extensions.Localization/ResourceManagerStringLocalizerFactory.cs), the assembly is being assigned as the assembly that contains the type to be localized, and this assembly gets passed into the ResourceManager, therefore it does not look for the resx file in the Resources folder of the web app if the type tobelocalized is in a different assembly than the web app.
   
   To make it look for the resx file in the web app we have to pass in the assembly of the web app.
   
-  I verified this by making [CustomResourceManagerStringLocalizerFactory.cs](https://github.com/joeaudette/experiments/blob/master/SomeWebLib/CustomResourceManagerStringLocalizerFactory.cs) where I added this right after the initial asignment of assembly:
+  I verified this by making [CustomResourceManagerStringLocalizerFactory.cs](https://github.com/joeaudette/experiments/blob/master/SomeWebLib/CustomResourceManagerStringLocalizerFactory.cs) where I added this right after the initial assignment of assembly:
   
       if(!(assembly.FullName.StartsWith(_applicationEnvironment.ApplicationName)))
     {
@@ -113,9 +113,9 @@ I plugged in the custom one in Startup.cs like this:
         typeof(CustomResourceManagerStringLocalizerFactory),
         ServiceLifetime.Singleton));
         
-and now both of my previous not working examples work, that is both IHtmlLocalizer<FooController> and IHtmlLocalizer<SomeWebLib.CommonResources> now localize string using the corresponding resx files from the web app Resources folder.
+and now both of my previous not working examples work, that is both IHtmlLocalizer<FooController> and IHtmlLocalizer<SomeWebLib.CommonResources> now localize strings using the corresponding resx files from the web app Resources folder.
 
-I have commented out the line in Startup.cs that adds my custom StringLocalizerFactory so that the problem can be seen.
+I have commented out the line in Startup.cs that adds my custom StringLocalizerFactory so that the problem can be seen even though I have found a solution or workaround.
 
 I'm waiting to find out if the asp.net team views this as a bug or not. I don't know if they intend us to use the same technique for localizing a controller that lives in a classlibrary or not.
 
