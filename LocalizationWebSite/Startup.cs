@@ -29,10 +29,11 @@ namespace LocalizationWebSite
             //      assembly = Assembly.Load(_applicationEnvironment.ApplicationName);
             //  }
 
-            services.TryAdd(new ServiceDescriptor(
-                typeof(IStringLocalizerFactory),
-                typeof(CustomResourceManagerStringLocalizerFactory),
-                ServiceLifetime.Singleton));
+            // the problem is solved by uncommenting this, I'm leaving it commented to show the problem
+            //services.TryAdd(new ServiceDescriptor(
+            //    typeof(IStringLocalizerFactory),
+            //    typeof(CustomResourceManagerStringLocalizerFactory),
+            //    ServiceLifetime.Singleton));
             
             services.AddMvc().AddViewLocalization(options => options.ResourcesPath = "Resources");
         }
