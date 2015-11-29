@@ -92,7 +92,7 @@ In Configure we have:
   
       SomeWebLib.Controllers.FooController.fr.resx
    
-  I determined that reason the localization does not work for class library classes is because in line 66 of [ResourceManagerStringLocalizaerFactory](https://github.com/aspnet/Localization/blob/dev/src/Microsoft.Extensions.Localization/ResourceManagerStringLocalizerFactory.cs), the assembly is being assigned as the assembly that contains the type to be localized, and this assembly gets passed into the ResourceManager, therefore it does not look for the resx file in the Resources folder of the web app if the type tobelocalized is in a different assembly than the web app.
+  I determined that reason the localization does not work for class library classes is because in line 66 of [ResourceManagerStringLocalizaerFactory](https://github.com/aspnet/Localization/blob/dev/src/Microsoft.Extensions.Localization/ResourceManagerStringLocalizerFactory.cs), the assembly is being assigned as the assembly that contains the type to be localized, and this assembly gets passed into the ResourceManager, therefore it does not look for the resx file in the Resources folder of the web app if the type to be localized is in a different assembly than the web app.
   
   To make it look for the resx file in the web app we have to pass in the assembly of the web app.
   
