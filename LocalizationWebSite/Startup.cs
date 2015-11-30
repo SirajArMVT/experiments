@@ -34,7 +34,7 @@ namespace LocalizationWebSite
             //    typeof(IStringLocalizerFactory),
             //    typeof(CustomResourceManagerStringLocalizerFactory),
             //    ServiceLifetime.Singleton));
-            
+
             services.AddMvc().AddViewLocalization(options => options.ResourcesPath = "Resources");
         }
 

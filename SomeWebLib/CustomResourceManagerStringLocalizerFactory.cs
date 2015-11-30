@@ -99,7 +99,8 @@ namespace SomeWebLib
                 if(!(string.IsNullOrEmpty(options.ResourcesPath)))
                 {
                     // this does work!
-                    assembly = Assembly.Load(_applicationEnvironment.ApplicationName);
+                    AssemblyName n = new AssemblyName(_applicationEnvironment.ApplicationName);
+                    assembly = Assembly.Load(n);
                 }
                 
             }
